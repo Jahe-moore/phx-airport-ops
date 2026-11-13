@@ -1,0 +1,46 @@
+stage,day_type,growth_pct,annual_min,increase_min,increase_lo,increase_hi,peak_hour,peak_per_dep,increase_pct
+Created at PHX (gate),All days,0,1644046.5,0,0,0,15,11.72,0
+Created at PHX (gate),All days,5,1728869.73,84823.23,80099.44,89492.65,15,11.75,5.16
+Created at PHX (gate),All days,10,1811609,167562.5,157179.5,177502.49,15,11.77,10.19
+Created at PHX (gate),All days,15,1891942.18,247895.68,230936.67,264091.06,15,11.78,15.08
+Created at PHX (gate),All days,20,1969576.42,325529.92,300504.87,348496.53,15,11.78,19.8
+Excess taxi-out,All days,0,1397341.85,0,0,0,9,9.92,0
+Excess taxi-out,All days,5,1501179.33,103837.48,102181.56,105522.69,9,10.11,7.43
+Excess taxi-out,All days,10,1608805.39,211463.53,207836.85,215170.25,9,10.31,15.13
+Excess taxi-out,All days,15,1720295.48,322953.62,316865.29,329031.89,9,10.5,23.11
+Excess taxi-out,All days,20,1835725.04,438383.19,429258.24,447394.07,9,10.7,31.37
+Inherited from late inbound,All days,0,1054019.5,0,0,0,19,9.81,0
+Inherited from late inbound,All days,5,1106720.48,52700.98,52700.98,52700.98,19,9.81,5
+Inherited from late inbound,All days,10,1159421.45,105401.95,105401.95,105401.95,19,9.81,10
+Inherited from late inbound,All days,15,1212122.42,158102.92,158102.92,158102.92,19,9.81,15
+Inherited from late inbound,All days,20,1264823.4,210803.9,210803.9,210803.9,19,9.81,20
+Created at PHX (gate),Hot days (110 F+),0,237819.5,0,0,0,16,18.49,0
+Created at PHX (gate),Hot days (110 F+),5,245855.87,8036.37,3654.5,12435.01,16,18.32,3.38
+Created at PHX (gate),Hot days (110 F+),10,253099.8,15280.3,6193.32,24661.97,16,18.14,6.43
+Created at PHX (gate),Hot days (110 F+),15,259564.13,21744.63,7879.69,36641.12,16,17.93,9.14
+Created at PHX (gate),Hot days (110 F+),20,265289.25,27469.75,8770.48,48650.65,22,17.86,11.55
+Excess taxi-out,Hot days (110 F+),0,137560.98,0,0,0,8,8.87,0
+Excess taxi-out,Hot days (110 F+),5,146976.24,9415.26,7700.94,11068.71,8,9.12,6.84
+Excess taxi-out,Hot days (110 F+),10,156796.06,19235.08,15436.49,22908.79,8,9.38,13.98
+Excess taxi-out,Hot days (110 F+),15,167042.65,29481.67,23217.48,35588.68,8,9.66,21.43
+Excess taxi-out,Hot days (110 F+),20,177738.24,40177.26,31046.15,49051.11,8,9.95,29.21
+Inherited from late inbound,Hot days (110 F+),0,142895.5,0,0,0,22,14.23,0
+Inherited from late inbound,Hot days (110 F+),5,150040.28,7144.78,7144.78,7144.78,22,14.23,5
+Inherited from late inbound,Hot days (110 F+),10,157185.05,14289.55,14289.55,14289.55,22,14.23,10
+Inherited from late inbound,Hot days (110 F+),15,164329.82,21434.32,21434.32,21434.32,22,14.23,15
+Inherited from late inbound,Hot days (110 F+),20,171474.6,28579.1,28579.1,28579.1,22,14.23,20
+Created at PHX (gate),Storm days,0,218302,0,0,0,15,19.68,0
+Created at PHX (gate),Storm days,5,228642.71,10340.71,7334.91,13517.28,15,19.65,4.74
+Created at PHX (gate),Storm days,10,238759.87,20457.87,13644.34,27729.86,15,19.62,9.37
+Created at PHX (gate),Storm days,15,248630.46,30328.46,19151.15,42501.49,15,19.58,13.89
+Created at PHX (gate),Storm days,20,258231.47,39929.47,23927.08,58301.84,15,19.53,18.29
+Excess taxi-out,Storm days,0,159307.86,0,0,0,9,10.98,0
+Excess taxi-out,Storm days,5,170170.5,10862.65,9982.51,11855.63,9,11.11,6.82
+Excess taxi-out,Storm days,10,181097.62,21789.77,19976.87,23836.16,9,11.23,13.68
+Excess taxi-out,Storm days,15,192060.38,32752.53,29783.67,35977.9,9,11.33,20.56
+Excess taxi-out,Storm days,20,203029.94,43722.09,39440.52,48369.89,9,11.42,27.45
+Inherited from late inbound,Storm days,0,155688,0,0,0,21,18.66,0
+Inherited from late inbound,Storm days,5,163472.4,7784.4,7784.4,7784.4,21,18.66,5
+Inherited from late inbound,Storm days,10,171256.8,15568.8,15568.8,15568.8,21,18.66,10
+Inherited from late inbound,Storm days,15,179041.2,23353.2,23353.2,23353.2,21,18.66,15
+Inherited from late inbound,Storm days,20,186825.6,31137.6,31137.6,31137.6,21,18.66,20

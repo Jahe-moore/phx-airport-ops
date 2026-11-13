@@ -1,0 +1,5 @@
+case,gate_usd,taxi_usd,larger
+Base: gate vs median carrier; taxi vs FAA quiet-hour level,84037888,95750572,Excess taxi-out
+High: gate vs best carrier; all FAA taxi delay,314889895,318936735,Excess taxi-out
+Alternative taxi measure: BTS excess over carrier quiet-hour median,84037888,160193026,Excess taxi-out
+"Taxi fix is metering only (fuel + maintenance saved, no passenger time)",84037888,19666751,Created at PHX (gate)

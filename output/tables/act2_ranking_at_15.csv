@@ -1,0 +1,4 @@
+stage,day_type,growth_pct,annual_min,increase_min,increase_lo,increase_hi,peak_hour,peak_per_dep,increase_pct
+Excess taxi-out,All days,15,1720295.5,322953.6,316865.3,329031.9,9,10.5,23.1
+Created at PHX (gate),All days,15,1891942.2,247895.7,230936.7,264091.1,15,11.8,15.1
+Inherited from late inbound,All days,15,1212122.4,158102.9,158102.9,158102.9,19,9.8,15

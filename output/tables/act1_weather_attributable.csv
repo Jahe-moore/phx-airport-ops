@@ -1,0 +1,7 @@
+outcome,heat_def,term,estimate,se,lo95,hi95,n,flights_per_year,minutes_per_year,stage
+phx_originated,heat_110,heat,3.26,0.73,1.84,4.68,387369,5124,16693.87,Created at PHX (gate)
+phx_originated,heat_110,storm,22.27,9.66,3.32,41.21,387369,1505,33512.04,Created at PHX (gate)
+inherited,heat_110,heat,0.72,0.41,-0.08,1.52,387369,5124,3675.9,Inherited from late inbound
+inherited,heat_110,storm,7.77,1.27,5.27,10.27,387369,1505,11693.86,Inherited from late inbound
+taxi_faa,heat_110,heat,0.35,0.18,0,0.7,387237,5124,1803.43,Excess taxi-out (FAA)
+taxi_faa,heat_110,storm,6.1,1.15,3.85,8.34,387237,1505,9175.92,Excess taxi-out (FAA)

@@ -1,0 +1,4 @@
+denominator,departures,matched,match_rate_pct
+all scheduled departures (strict: one departure per inbound),15729,14700,93.5
+flown departures with a tail number (strict),15576,14700,94.4
+"flown departures with a tail number, excluding day 1 of month (strict)",15089,14234,94.3

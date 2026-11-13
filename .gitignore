@@ -1,0 +1,20 @@
+data/raw/*
+data/processed/*
+!**/.gitkeep
+.Rproj.user/
+.Rhistory
+.RData
+renv/library/
+*.aux
+*.log
+*.out
+.Renviron
+.Rprofile.local
+!data/raw/faa_*.txt
+report/*.tex
+report/*_files/
+report/*.toc
+
+# internal working notes, not published
+PLAN.md
+CLAUDE.md

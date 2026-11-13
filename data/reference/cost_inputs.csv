@@ -1,0 +1,18 @@
+input,value,unit,dollar_year,source,url,note
+a4a_block_min_total,98.41,USD per block minute,2025,"Airlines for America, U.S. Passenger Carrier Delay Costs (page dated Jul 23, 2026), Calendar Year 2025, from DOT Form 41",https://airlines.org/dataset/u-s-passenger-carrier-delay-costs/,VERIFY: read 2026-11-10
+a4a_block_min_crew,37.01,USD per block minute,2025,same,https://airlines.org/dataset/u-s-passenger-carrier-delay-costs/,VERIFY
+a4a_block_min_fuel,29.34,USD per block minute,2025,same,https://airlines.org/dataset/u-s-passenger-carrier-delay-costs/,VERIFY
+a4a_block_min_maintenance,18.35,USD per block minute,2025,same,https://airlines.org/dataset/u-s-passenger-carrier-delay-costs/,VERIFY
+a4a_block_min_ownership,9.76,USD per block minute,2025,same,https://airlines.org/dataset/u-s-passenger-carrier-delay-costs/,VERIFY
+a4a_block_min_other,3.95,USD per block minute,2025,same,https://airlines.org/dataset/u-s-passenger-carrier-delay-costs/,VERIFY
+vtts_air_all_purpose,47.10,USD per person-hour,2015,"FAA Economic Values for Evaluation of FAA Investment and Regulatory Decisions, Section 1 Table 1-1 (from US DOT Revised Departmental Guidance on Valuation of Travel Time, Sept 27 2016), intercity air all purpose",https://www.faa.gov/regulations_policies/policy_guidance/benefit_cost/econ-value-section-1-tx-time.pdf,VERIFY: read 2026-11-10
+vtts_air_low,38.90,USD per person-hour,2015,same table range,https://www.faa.gov/regulations_policies/policy_guidance/benefit_cost/econ-value-section-1-tx-time.pdf,VERIFY
+vtts_air_high,58.30,USD per person-hour,2015,same table range,https://www.faa.gov/regulations_policies/policy_guidance/benefit_cost/econ-value-section-1-tx-time.pdf,VERIFY
+seats_all_aircraft,169,seats per departure,YE June 2023,"FAA Economic Values, Section 3 Table 3-6, Part 121 passenger carriers, All Aircraft",https://www.faa.gov/regulations_policies/policy_guidance/benefit_cost/econ-value-section-3-capacity.pdf,VERIFY
+load_factor_all_aircraft,0.84,share,YE June 2023,same,https://www.faa.gov/regulations_policies/policy_guidance/benefit_cost/econ-value-section-3-capacity.pdf,VERIFY
+seats_narrowbody_small,133,seats per departure,YE June 2023,"same table, Narrowbody less than 165k lbs MTOW (low case for mainline)",https://www.faa.gov/regulations_policies/policy_guidance/benefit_cost/econ-value-section-3-capacity.pdf,VERIFY
+load_factor_narrowbody_small,0.82,share,YE June 2023,same,https://www.faa.gov/regulations_policies/policy_guidance/benefit_cost/econ-value-section-3-capacity.pdf,VERIFY
+seats_narrowbody_large,177,seats per departure,YE June 2023,"same table, Narrowbody 165k lbs or more MTOW (high case for mainline)",https://www.faa.gov/regulations_policies/policy_guidance/benefit_cost/econ-value-section-3-capacity.pdf,VERIFY
+load_factor_narrowbody_large,0.85,share,YE June 2023,same,https://www.faa.gov/regulations_policies/policy_guidance/benefit_cost/econ-value-section-3-capacity.pdf,VERIFY
+seats_regional_jet_61_99,74,seats per departure,YE June 2023,"same table, Regional jet 61-99 seats (used for regional carriers OO, MQ)",https://www.faa.gov/regulations_policies/policy_guidance/benefit_cost/econ-value-section-3-capacity.pdf,VERIFY
+load_factor_regional_jet_61_99,0.81,share,YE June 2023,same,https://www.faa.gov/regulations_policies/policy_guidance/benefit_cost/econ-value-section-3-capacity.pdf,VERIFY

@@ -1,0 +1,45 @@
+section,metric,value
+counts,phx_departures_scheduled,15729
+counts,phx_departures_cancelled,153
+counts,phx_departures_diverted,75
+counts,phx_arrivals_scheduled_in_month,15728
+counts,carriers,12
+missing,pct_flown_with_arrival_delay_15plus,24.5
+missing,pct_flown_with_cause_fields,24.4
+tail_link,matched_with_negative_ground_time,1
+tail_link,matched_with_ground_time_under_20_min,1
+tail_link,inbounds_claimed_by_more_than_one_departure,259
+tail_link,matched_inbound_from_different_carrier,0
+hourly,quiet_hour_threshold_deps_per_hour,20.5
+hourly,dep_delay_range_across_hours_6_to_22,4.39 to 35.96
+hourly,taxi_out_range_across_hours_6_to_22,11.67 to 18.51
+hourly,corr_hourly_load_vs_taxi_out,0.221
+faa,opsnet_total_operations_month,38611
+faa,bts_flown_departures_plus_arrivals_month,31129
+faa,bts_share_of_opsnet_operations_pct,80.6
+faa,opsnet_system_impact_delays_month,123
+faa,opsnet_delays_weather,105
+faa,opsnet_delays_volume,18
+faa,opsnet_days_with_any_delay,12
+faa,opsnet_delays_on_worst_two_days,108
+faa,opsnet_worst_two_days,"2025-07-02, 2025-07-01"
+weather,hours_in_month_with_observations,744
+weather,hours_expected,744
+weather,hours_missing_temperature,0
+weather,hours_heat_105,156
+weather,hours_heat_110,34
+weather,hours_heat_115,5
+weather,hours_storm,7
+weather,hours_thunder,4
+weather,max_temp_f,117
+weather,flown_departures_joined_to_weather_pct,100
+weather,heat_gap_unadjusted_min,14.6
+weather,heat_gap_same_hour_weighted_min,9.2
+tsa,days_parsed,14
+tsa,daily_throughput_min,46193
+tsa,daily_throughput_max,59086
+tsa,peak_hour,6
+tsa,peak_hour_avg_throughput,4772
+tsa,checkpoints,T-3 North; T-4 A; T-4 B; T-4 C; T-4 D
+tsa,checkpoint_set_same_both_weeks,TRUE
+tsa,unparseable_file_names,8

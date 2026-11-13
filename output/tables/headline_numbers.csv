@@ -1,0 +1,120 @@
+key,value,label
+act2_first_stage,Excess taxi-out,Stage whose annual delay rises most at +15% traffic
+act2_first_stage_by_pct,Excess taxi-out,Stage with the largest percent rise at +15%
+act2_gate_increase_hi,264091,90% interval high
+act2_gate_increase_lo,230937,90% interval low
+act2_gate_increase_min,247896,Created at PHX (gate) added minutes per year at +15%
+act2_gate_increase_pct,15.1,Created at PHX (gate) percent rise in annual minutes at +15%
+act2_gate_peak_per_dep_15,11.8,Busiest-hour average per departure at +15%
+act2_gate_peak_per_dep_now,11.7,Busiest-hour average per departure today
+act2_gate_per_dep_change_pct,0.1,Created at PHX (gate) change in minutes per departure at +15%
+act2_inherited_increase_hi,158103,90% interval high
+act2_inherited_increase_lo,158103,90% interval low
+act2_inherited_increase_min,158103,Inherited from late inbound added minutes per year at +15%
+act2_inherited_increase_pct,15,Inherited from late inbound percent rise in annual minutes at +15%
+act2_inherited_peak_per_dep_15,9.8,Busiest-hour average per departure at +15%
+act2_inherited_peak_per_dep_now,9.8,Busiest-hour average per departure today
+act2_inherited_per_dep_change_pct,0,Inherited from late inbound change in minutes per departure at +15%
+act2_pct_hours_15_above_typical,25.3,Share of hours already running 15%+ above that hour's typical load
+act2_pct_hours_inside_range,92.2,Share of hours whose +15% load is within the busiest load already seen in that clock hour
+act2_taxi_increase_hi,329032,90% interval high
+act2_taxi_increase_lo,316865,90% interval low
+act2_taxi_increase_min,322954,Excess taxi-out added minutes per year at +15%
+act2_taxi_increase_pct,23.1,Excess taxi-out percent rise in annual minutes at +15%
+act2_taxi_peak_per_dep_15,10.5,Busiest-hour average per departure at +15%
+act2_taxi_peak_per_dep_now,9.9,Busiest-hour average per departure today
+act2_taxi_per_dep_change_pct,7.1,Excess taxi-out change in minutes per departure at +15%
+best_stage,Excess taxi-out,Stage with the most recoverable value per year
+bts_share_of_ops_pct,79.7,BTS flown departures plus arrivals as a share of FAA-counted PHX operations
+cause_carrier_share_pct,37.6,Carrier-caused share of reported delay minutes (flights 15+ min late)
+cause_late_aircraft_share_pct,44.3,Late-aircraft share of reported delay minutes
+cause_nas_share_pct,15.4,NAS share of reported delay minutes
+cause_weather_share_pct,2.5,Extreme-weather share of reported delay minutes
+cpi_2015_to_2025,1.3583,CPI-U ratio 2025 / 2015 (2025 averages the months published)
+cpi_2025_months,11,Months of 2025 CPI-U published in the source
+dep_delay_min_per_year,2712585,"Departure delay minutes per year (BTS flights, early = 0)"
+departure_peak_hour,8,Scheduled hour with the most departures
+departures_per_year,193862,BTS flown PHX departures per year
+gate_delay_morning_mean,4.9,"Mean departure delay, 05:00-07:59, minutes"
+gate_delay_peak_hour,20,Hour with the highest mean departure delay
+gate_delay_peak_hour_mean,20.2,"Mean departure delay in that hour, minutes"
+gate_recoverable_top_carrier,AA,Carrier holding the most recoverable gate minutes
+gate_recoverable_top_carrier_share,57.8,"Its share of recoverable gate minutes, percent"
+growth_bts_pct,1.7,BTS scheduled departures growth 2025 vs 2024
+growth_ops_pct,0.3,FAA operations growth 2025 vs 2024
+growth_tsa_pct,-1.1,"TSA throughput growth 2025 vs 2024, matching weeks"
+heat_flights_per_year,5124,Departures per year scheduled in 110 F+ hours
+heat_phx_orig_effect,3.3,"Added PHX-originated gate delay per departure in 110 F+ hours, minutes (controlled)"
+heat_phx_orig_hi,4.7,95% CI high
+heat_phx_orig_lo,1.8,95% CI low
+heat_taxi_effect,0.4,"Added FAA excess taxi per departure in 110 F+ hours, minutes"
+inherited_min_per_year,1060281,Inherited delay minutes per year
+inherited_share_pct,39.1,Share of departure delay inherited from late inbound aircraft
+inherited_slack_share_pct,30.2,Inherited share after removing turn slack (sensitivity)
+link_rate_pct,95.7,Flown departures linked to their inbound aircraft
+opsnet_days_with_delay_pct,72.4,Share of days with any FAA-recorded delay
+opsnet_delay_minutes_per_year,140507,FAA-recorded delay minutes per year
+opsnet_delays_per_1000_ops,8.82,"FAA-recorded delays per 1,000 operations"
+opsnet_delays_per_year,4292,FAA-recorded air traffic delays at PHX per year
+opsnet_operations_per_year,486444,PHX airport operations per year (FAA)
+opsnet_top10_days_share_pct,25.1,Share of FAA delays on the worst 10 days
+opsnet_volume_share_pct,47.6,Volume share of FAA-recorded delays
+opsnet_weather_share_pct,38.3,Weather share of FAA-recorded delays
+pax_per_dep_mainline,142,Passengers per mainline departure (FAA Table 3-6)
+pax_per_dep_regional,59.9,Passengers per regional departure (FAA Table 3-6)
+phx_originated_min_per_year,1652304,PHX-originated gate delay minutes per year
+rate_gate_airline,50.72,"Airline cost per gate-delay minute, USD (A4A 2025 crew + ownership + other)"
+rate_taxi_airline,98.41,"Airline cost per taxi minute, USD (A4A 2025 full block minute)"
+robust_cases_gate_wins,1,Robustness cases where gate delay has more recoverable value
+robust_cases_total,4,Robustness cases compared
+stage_gate_addr_min,419457,"Created at PHX (gate) recoverable minutes per year, base"
+stage_gate_addr_usd,84037888,"Created at PHX (gate) recoverable value per year, base, USD"
+stage_gate_addr_usd_high,314889895,"Created at PHX (gate) recoverable value per year, high case"
+stage_gate_airline_usd,83804859,"Created at PHX (gate) airline cost per year, base"
+stage_gate_min,1652304,Created at PHX (gate) minutes per year
+stage_gate_usd_base,314492462,"Created at PHX (gate) total cost per year, base case, USD"
+stage_gate_usd_high,464173032,"Created at PHX (gate) total cost per year, high case"
+stage_gate_usd_low,232891311,"Created at PHX (gate) total cost per year, low case"
+stage_inherited_addr_min,0,"Inherited from late inbound recoverable minutes per year, base"
+stage_inherited_addr_usd,0,"Inherited from late inbound recoverable value per year, base, USD"
+stage_inherited_addr_usd_high,0,"Inherited from late inbound recoverable value per year, high case"
+stage_inherited_airline_usd,53777452,"Inherited from late inbound airline cost per year, base"
+stage_inherited_min,1060281,Inherited from late inbound minutes per year
+stage_inherited_usd_base,202472140,"Inherited from late inbound total cost per year, base case, USD"
+stage_inherited_usd_high,298764466,"Inherited from late inbound total cost per year, high case"
+stage_inherited_usd_low,149773835,"Inherited from late inbound total cost per year, low case"
+stage_taxi_addr_min,412387,"Excess taxi-out recoverable minutes per year, base"
+stage_taxi_addr_usd,95750572,"Excess taxi-out recoverable value per year, base, USD"
+stage_taxi_addr_usd_high,318936735,"Excess taxi-out recoverable value per year, high case"
+stage_taxi_airline_usd,114480655,"Excess taxi-out airline cost per year, base"
+stage_taxi_min,1163303,Excess taxi-out minutes per year
+stage_taxi_usd_base,271138852,"Excess taxi-out total cost per year, base case, USD"
+stage_taxi_usd_high,318936735,"Excess taxi-out total cost per year, high case"
+stage_taxi_usd_low,129401491,"Excess taxi-out total cost per year, low case"
+storm_flights_per_year,1505,Departures per year scheduled in storm hours
+storm_phx_orig_effect,22.3,Added PHX-originated gate delay per departure in storm hours
+storm_taxi_effect,6.1,Added FAA excess taxi per departure in storm hours
+taxi_bank_second_carrier,AA,Second carrier
+taxi_bank_second_carrier_share,33.2,"Its share, percent"
+taxi_bank_top_carrier,WN,Carrier with most recoverable taxi minutes in the 07-11 bank
+taxi_bank_top_carrier_share,33.3,"Its share, percent"
+taxi_bts_basis_usd,160193026,"Taxi recoverable value on the BTS quiet-hour basis, USD per year"
+taxi_bts_excess_min_per_year,707500,"Excess taxi-out minutes per year, quiet-hour basis, BTS flights"
+taxi_faa_excess_min_per_year,1163303,"Excess taxi-out minutes per year, FAA unimpeded basis, BTS flights"
+taxi_faa_excess_per_dep,6,"Excess taxi-out per departure, FAA basis, minutes"
+taxi_metering_only_usd,19666751,"Taxi recoverable value if the fix is metering only, USD per year"
+taxi_out_mean,15.9,"Mean taxi-out time, minutes"
+taxi_peak_hour,9,Pushback hour with the highest FAA taxi-out delay
+taxi_peak_hour_delay,9.9,"FAA taxi-out delay per departure in that hour, minutes"
+taxi_peak_hour_deps_per_day,44.2,Departures per day in that hour (FAA)
+taxi_quiet_level,4.25,"FAA taxi-out delay per departure in the quietest quarter of hours, minutes"
+taxi_recoverable_7_11_share,68.1,"Share of recoverable taxi minutes with pushback 07:00-11:59, percent"
+total_usd_base,788103454,"All three stages, total cost per year, base case"
+tsa_avg_daily,58035,Average daily PHX checkpoint throughput
+tsa_days_covered,703,Days of TSA data in the window
+tsa_peak_hour,7,Peak checkpoint hour
+tsa_peak_hour_avg,4727,Average passengers in the peak checkpoint hour
+vtts_2025_per_hour,63.98,"Passenger value of time, USD per hour in 2025 dollars"
+weather_minutes_per_year,76555,Gate and taxi minutes per year attributable to heat and storms
+years_to_15_ops,48.7,Years to +15% at the 2024-2025 operations growth rate
+years_to_15_tsa,NA,Years to +15% at the 2024-2025 passenger growth rate

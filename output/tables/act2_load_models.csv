@@ -1,0 +1,7 @@
+stage,day_type,b_load,se_load,b_load2,se_load2,hours,marginal_at_mean
+Created at PHX (gate),All days,0.1322,0.04075,-0.001494,4.966e-4,13860,0.02373
+Excess taxi-out,All days,0.0536,0.01163,2.98e-4,1.463e-4,13870,0.07531
+Created at PHX (gate),Hot days (110 F+),0.1389,0.1476,-0.003137,0.001876,1596,-0.07241
+Excess taxi-out,Hot days (110 F+),-0.01513,0.05556,9.519e-4,9.117e-4,1596,0.04909
+Created at PHX (gate),Storm days,0.08355,0.2735,-0.00123,0.003691,1290,-0.003846
+Excess taxi-out,Storm days,0.183,0.082170000000000007,-0.001304,9.669e-4,1290,0.09019

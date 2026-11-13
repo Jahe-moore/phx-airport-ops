@@ -1,0 +1,43 @@
+# Source: FAA OPSNET, Delays, Standard Report, public (no login)
+# URL: https://www.aspm.faa.gov/opsnet/sys/Delays.asp  -> report served by opsnet-server-x.asp
+# Query: Dates = Range 07/01/2025 to 07/31/2025; Facilities = PHX; Groupings = Facility, Date; Display = Standard Report; Format = HTML
+# Captured: 2026-11-10 via Chrome (page text, verbatim). Report stamp: Tue Nov 10 14:10:20 EST 2026
+# Column order (21 values after Facility and Date), per the report header:
+#  total_ops | sysimp_total sysimp_dep sysimp_abrn sysimp_tmi_to sysimp_tmi_from |
+#  occ_local occ_total occ_nonlocal | (unlabeled in text export: see note) |
+#  class_ac class_at class_ga class_mil | cause_wx cause_vol cause_equip cause_rwy cause_other | avg_min total_min
+# NOTE: the header text flattens a two-level table; the class and cause groups were confirmed by their sums
+# (07/02: class 33+24+1+0 = 58 = sysimp_total; cause wx 58). The exact meaning of columns 7 to 10 must be
+# confirmed against the OPSNET manual before Phase 1 uses them.
+PHX 07/01/2025 1233 50 4 46 0 0 16 62 46 0 47 2 1 0 46 4 0 0 0 19.00 950
+PHX 07/02/2025 1242 58 57 1 0 0 4 5 1 11 33 24 1 0 58 0 0 0 0 68.00 3944
+PHX 07/03/2025 1324 1 1 0 0 0 11 11 0 0 1 0 0 0 0 1 0 0 0 24.00 24
+PHX 07/04/2025 906 0 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0.00 0
+PHX 07/05/2025 1105 1 1 0 0 0 5 5 0 0 1 0 0 0 0 1 0 0 0 25.00 25
+PHX 07/06/2025 1273 0 0 0 0 1 13 14 1 0 0 0 0 0 0 0 0 0 0 0.00 0
+PHX 07/07/2025 1322 0 0 0 0 0 17 17 0 0 0 0 0 0 0 0 0 0 0 0.00 0
+PHX 07/08/2025 1260 0 0 0 0 0 17 17 0 1 0 0 0 0 0 0 0 0 0 0.00 0
+PHX 07/09/2025 1254 0 0 0 0 0 12 12 0 0 0 0 0 0 0 0 0 0 0 0.00 0
+PHX 07/10/2025 1338 0 0 0 0 0 18 18 0 1 0 0 0 0 0 0 0 0 0 0.00 0
+PHX 07/11/2025 1303 1 1 0 0 0 10 10 0 0 1 0 0 0 0 1 0 0 0 16.00 16
+PHX 07/12/2025 1112 0 0 0 0 0 3 3 0 0 0 0 0 0 0 0 0 0 0 0.00 0
+PHX 07/13/2025 1192 0 0 0 0 0 22 22 0 0 0 0 0 0 0 0 0 0 0 0.00 0
+PHX 07/14/2025 1282 1 1 0 0 0 17 17 0 1 1 0 0 0 0 1 0 0 0 24.00 24
+PHX 07/15/2025 1266 1 1 0 0 0 2 2 0 0 1 0 0 0 0 1 0 0 0 17.00 17
+PHX 07/16/2025 1263 0 0 0 0 0 18 18 0 0 0 0 0 0 0 0 0 0 0 0.00 0
+PHX 07/17/2025 1341 2 2 0 0 0 14 14 0 0 2 0 0 0 0 2 0 0 0 28.00 56
+PHX 07/18/2025 1343 5 4 1 0 0 4 5 1 0 4 0 1 0 1 4 0 0 0 17.00 85
+PHX 07/19/2025 1143 0 0 0 0 0 8 8 0 0 0 0 0 0 0 0 0 0 0 0.00 0
+PHX 07/20/2025 1205 0 0 0 0 0 7 7 0 0 0 0 0 0 0 0 0 0 0 0.00 0
+PHX 07/21/2025 1370 1 1 0 0 0 6 6 0 0 1 0 0 0 0 1 0 0 0 25.00 25
+PHX 07/22/2025 1235 1 1 0 0 0 13 13 0 0 1 0 0 0 0 1 0 0 0 42.00 42
+PHX 07/23/2025 1244 0 0 0 0 0 9 9 0 0 0 0 0 0 0 0 0 0 0 0.00 0
+PHX 07/24/2025 1315 0 0 0 0 0 15 15 0 0 0 0 0 0 0 0 0 0 0 0.00 0
+PHX 07/25/2025 1299 0 0 0 0 0 5 5 0 0 0 0 0 0 0 0 0 0 0 0.00 0
+PHX 07/26/2025 1151 1 1 0 0 0 1 1 0 0 1 0 0 0 0 1 0 0 0 25.00 25
+PHX 07/27/2025 1181 0 0 0 0 0 11 11 0 0 0 0 0 0 0 0 0 0 0 0.00 0
+PHX 07/28/2025 1297 0 0 0 0 0 2 2 0 0 0 0 0 0 0 0 0 0 0 0.00 0
+PHX 07/29/2025 1274 0 0 0 0 0 6 6 0 0 0 0 0 0 0 0 0 0 0 0.00 0
+PHX 07/30/2025 1240 0 0 0 0 0 8 8 0 0 0 0 0 0 0 0 0 0 0 0.00 0
+PHX 07/31/2025 1298 0 0 0 0 0 21 21 0 0 0 0 0 0 0 0 0 0 0 0.00 0
+Sub-Total for PHX 38611 123 75 48 0 1 316 365 49 14 94 26 3 0 105 18 0 0 0 42.54 5233

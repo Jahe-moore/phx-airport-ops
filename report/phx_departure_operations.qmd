@@ -1,0 +1,274 @@
+---
+title: "Where Phoenix Sky Harbor Loses Departure Time, and What Breaks First Under Growth"
+subtitle: "A public-data diagnostic of PHX departures, 2024 to 2025"
+author: "Jake Moore"
+date: today
+date-format: "MMMM D, YYYY"
+format:
+  pdf:
+    documentclass: article
+    papersize: letter
+    geometry: [margin=1in]
+    fontsize: 11pt
+    toc: true
+    toc-depth: 2
+    number-sections: true
+    colorlinks: true
+    fig-pos: "H"
+    include-in-header:
+      text: |
+        \usepackage{float}
+        \usepackage{booktabs}
+execute:
+  echo: false
+  warning: false
+  message: false
+knitr:
+  opts_knit:
+    root.dir: ".."
+---
+
+```{r setup}
+source("R/00_setup.R")
+# Pandoc reads a pair of $ signs as math, so every dollar amount in the report is escaped
+fmt_usd_raw <- fmt_usd
+usd_sign <- paste0(intToUtf8(92), "$")   # a backslash then a dollar sign
+fmt_usd <- function(x) gsub("$", usd_sign, fmt_usd_raw(x), fixed = TRUE)
+hn <- readr::read_csv("output/tables/headline_numbers.csv", show_col_types = FALSE, col_types = "ccc")
+h <- function(key) {
+  v <- hn$value[hn$key == key]
+  if (length(v) != 1) stop("missing headline number: ", key)
+  v
+}
+hn_num <- function(key) as.numeric(h(key))
+n0 <- function(key) fmt_n(hn_num(key))
+n1 <- function(key) format(round(hn_num(key), 1), nsmall = 1)
+mm <- function(key) paste0(format(round(hn_num(key) / 1e6, 2), nsmall = 2), " million")
+usd <- function(key) fmt_usd(hn_num(key))
+tbl <- function(name) readr::read_csv(file.path("output/tables", paste0(name, ".csv")), show_col_types = FALSE)
+cname <- function(code) c(WN = "Southwest", AA = "American", OO = "SkyWest", DL = "Delta", UA = "United", MQ = "Envoy", F9 = "Frontier", AS = "Alaska", NK = "Spirit", B6 = "JetBlue", G4 = "Allegiant", HA = "Hawaiian")[[code]]
+fig <- function(name) knitr::include_graphics(normalizePath(file.path("output/figures", paste0(name, ".png")), winslash = "/"))
+stages <- tbl("act1_stage_ranking")
+robust <- tbl("act1_recommendation_robustness")
+growth <- tbl("act2_growth_rates")
+```
+
+# Executive summary
+
+**Question 1. Where does PHX lose departure time, and which single fix has the best return?** Across 2024 and 2025, PHX departures in the federal on-time data lost `r mm("dep_delay_min_per_year")` minutes a year at the gate, plus `r mm("stage_taxi_min")` minutes of extra taxi-out time beyond the FAA's unimpeded reference. Gate delay created at PHX is the largest stage (`r mm("stage_gate_min")` minutes, about `r usd("stage_gate_usd_base")` a year in airline cost and passenger time). The stage with the most recoverable value is different: the **morning taxi-out queue**. `r n1("taxi_recoverable_7_11_share")` percent of the recoverable taxi time sits in the 7 to 11 AM pushback window, worth about `r usd("stage_taxi_addr_usd")` a year in the base case.
+
+**Recommendation.** Thin the 7 to 11 AM departure bank so the runway queue shrinks. `r cname(h("taxi_bank_top_carrier"))` and `r cname(h("taxi_bank_second_carrier"))` account for `r n1("taxi_bank_top_carrier_share")` and `r n1("taxi_bank_second_carrier_share")` percent of the recoverable queue minutes in that window. At 25 percent capture the value is `r fmt_usd(0.25 * hn_num("stage_taxi_addr_usd"))` a year; at 50 percent, `r fmt_usd(0.5 * hn_num("stage_taxi_addr_usd"))`. If the fix only holds aircraft at the gate (metering) instead of reducing the queue, the value falls to `r usd("taxi_metering_only_usd")` because passengers still leave late, and the larger opportunity becomes gate delay created at PHX, where `r cname(h("gate_recoverable_top_carrier"))` holds `r n1("gate_recoverable_top_carrier_share")` percent of the recoverable minutes.
+
+**Question 2. If PHX traffic grows 15 percent, which stage degrades first?** **Excess taxi-out.** Its annual minutes rise `r n1("act2_taxi_increase_pct")` percent at +15 percent traffic, which is `r n1("act2_taxi_per_dep_change_pct")` percent worse per departure. Gate delay rises `r n1("act2_gate_increase_pct")` percent, essentially in step with the number of flights (`r n1("act2_gate_per_dep_change_pct")` percent per departure). The answer holds on hot days and storm days. At the 2024 to 2025 growth rate in FAA operations (`r n1("growth_ops_pct")` percent), +15 percent is `r if (is.na(hn_num("years_to_15_ops"))) "not reached" else paste(n1("years_to_15_ops"), "years")` away.
+
+**Main limitation.** Public data starts at the gate. Curb, check-in, security wait times and gate assignment are not measured publicly and are excluded. Dollar figures depend on published unit costs, listed with their sources in Section 6.
+
+# Client and question
+
+Phoenix Sky Harbor handled about `r n0("opsnet_operations_per_year")` takeoffs and landings a year in 2024 and 2025 (FAA OPSNET). The airport is a hub for American and a major Southwest station, so departure performance shapes connections across both networks. This project treats PHX as a consulting client and answers two questions with public data:
+
+1. Where does time get lost between scheduled departure and takeoff, and which single fix has the best return?
+2. If traffic grows 15 percent, which measured stage degrades first?
+
+# Scope and limitations
+
+The measurable departure journey runs from the aircraft's inbound arrival to wheels-up. Stages without public measurement were cut rather than estimated.
+
+| Stage | Public measure | In scope |
+|---|---|---|
+| Curb, check-in, bag drop | None | No |
+| Security checkpoint wait | None (TSA publishes counts only) | No |
+| Checkpoint passenger volume | TSA hourly counts | Demand context only |
+| Gate occupancy, gate assignment | None | No |
+| Late inbound aircraft | BTS, per flight | Yes |
+| Gate departure delay | BTS, per flight | Yes |
+| Taxi-out | BTS per flight, FAA ASPM per hour | Yes |
+| Airfield and airspace delay | FAA OPSNET, daily | Yes, as a cause overlay |
+| Weather | KPHX hourly observations | Overlay on every stage |
+
+Limitations, stated wherever findings appear:
+
+1. Scope starts at the gate.
+2. BTS covers domestic flights of the larger U.S. carriers: about `r n0("bts_share_of_ops_pct")` percent of PHX operations by FAA count (Section 4).
+3. BTS delay-cause minutes exist only for flights arriving 15 or more minutes late and are airline-reported.
+4. TSA data is passenger counts; nothing here implies a wait time.
+5. Hourly FAA runway rates (called departure rates) are not public, so airfield utilization is not computed.
+6. Act 2 is a projection fitted on observed PHX hours. It assumes the schedule grows in proportion across hours with today's runways, gates and procedures.
+7. Dollar figures depend on published unit costs and are shown with a range. The cost of any fix is not public, so "return" means recoverable value per year.
+
+# Data
+
+| Source | Grain | Window | Use |
+|---|---|---|---|
+| BTS Reporting Carrier On-Time Performance | Flight | Jan 2024 to Dec 2025 (plus Dec 2023 for linking) | Backbone |
+| FAA ASPM Airport Analysis | Airport-hour | 2024 to 2025, 17,440 hours | Taxi-out delay vs unimpeded, hourly load |
+| FAA OPSNET Delays | Airport-day | 2024 to 2025, 731 days | Official air traffic delays by cause |
+| KPHX ASOS (Iowa Environmental Mesonet) | Observation, rolled to hour | 2024 to 2025 | Heat and storm flags |
+| TSA checkpoint throughput | Checkpoint-hour | `r n0("tsa_days_covered")` days | Passenger demand, growth |
+
+```{r coverage}
+cov <- tbl("validate_coverage_by_month")
+cx <- tbl("phase0_aspm_vs_bts_2025_07_15")
+```
+
+The BTS flights were linked to the same aircraft's previous arrival at PHX by tail number; `r n1("link_rate_pct")` percent of flown departures found their inbound. BTS flown departures equal about `r round(median(cov$bts_share_of_aspm_deps_pct, na.rm = TRUE))` percent of the departures FAA measured each month; the rest are carriers and flight types outside BTS. BTS taxi-out matches FAA's own figure closely (on 15 July 2025, `r cx$bts[2]` versus `r cx$faa_aspm[2]` minutes; `docs/phase0_memo.md`). Validation checks, cleaning choices and the data dictionary are in the repository (`R/03_validate.R`, `docs/DATA_SOURCES.md`).
+
+# Act 1: where PHX loses time
+
+## Inherited versus PHX-originated delay
+
+```{r f-inh, fig.cap="Gate delay per departure by hour, split into delay carried in on the inbound aircraft and delay created at PHX."}
+fig("act1_inherited_by_hour")
+```
+
+Of the `r mm("dep_delay_min_per_year")` gate-delay minutes a year, `r n1("inherited_share_pct")` percent are inherited from a late inbound aircraft. The rest, `r mm("phx_originated_min_per_year")` minutes, start at PHX. Airlines pad turn times, so some inbound lateness is absorbed before it reaches the next departure; removing each turn's slack above the carrier's shortest normal turn lowers the inherited share to `r n1("inherited_slack_share_pct")` percent. Either way, most gate delay is created at PHX.
+
+## Gate delay by hour, carrier and cause
+
+```{r f-gate, fig.cap="Mean gate departure delay by scheduled hour."}
+fig("act1_gate_by_hour")
+```
+
+Delay builds through the day: about `r n1("gate_delay_morning_mean")` minutes per departure before 8 AM and `r n1("gate_delay_peak_hour_mean")` minutes at `r h("gate_delay_peak_hour")`:00. Among flights that arrived 15 or more minutes late, airlines attributed `r n1("cause_late_aircraft_share_pct")` percent of the minutes to late aircraft and `r n1("cause_carrier_share_pct")` percent to the carrier's own operation; the air traffic system (`r n1("cause_nas_share_pct")` percent) and extreme weather (`r n1("cause_weather_share_pct")` percent) are smaller.
+
+```{r f-cause, fig.cap="Reported delay-cause minutes, PHX departures arriving 15+ minutes late."}
+fig("act1_gate_causes")
+```
+
+## Excess taxi-out
+
+```{r f-taxi, fig.cap="Excess taxi-out per departure by pushback hour."}
+fig("act1_taxi_by_hour")
+```
+
+PHX departures average `r n1("taxi_out_mean")` minutes of taxi-out. Measured against FAA's unimpeded taxi time, the excess is `r n1("taxi_faa_excess_per_dep")` minutes per departure and `r mm("taxi_faa_excess_min_per_year")` minutes a year. Measured against each carrier's quiet-hour median instead, it is `r mm("taxi_bts_excess_min_per_year")` minutes; the report uses the FAA figure and shows the other as the low end. The queue peaks at `r h("taxi_peak_hour")`:00 at `r n1("taxi_peak_hour_delay")` extra minutes per departure, during the morning departure bank.
+
+## Airfield and airspace delays
+
+```{r f-air, fig.cap="FAA-recorded air traffic delays at PHX by month and cause."}
+fig("act1_airfield_by_month")
+```
+
+FAA recorded `r n0("opsnet_delays_per_year")` air traffic delays a year at PHX (`r n1("opsnet_delays_per_1000_ops")` per 1,000 operations), totaling `r n0("opsnet_delay_minutes_per_year")` minutes: under a tenth of the gate-delay minutes. Volume caused `r n1("opsnet_volume_share_pct")` percent of them and weather `r n1("opsnet_weather_share_pct")` percent. They come in bursts: the worst 10 of 731 days hold `r n1("opsnet_top10_days_share_pct")` percent. These minutes already sit inside the gate and taxi stages (a ground stop holds aircraft at the gate), so they are shown as a cause and not added to the ranking.
+
+## Weather
+
+```{r f-wx, fig.cap="Added minutes per departure in heat and storm hours, after controlling for hour, weekday, month and carrier."}
+fig("act1_weather_effects")
+```
+
+Comparing flights in the same clock hour, weekday, month and carrier, a 110 F hour adds `r n1("heat_phx_orig_effect")` minutes of PHX-created gate delay per departure (95 percent interval `r n1("heat_phx_orig_lo")` to `r n1("heat_phx_orig_hi")`), and a storm hour adds `r n1("storm_phx_orig_effect")` minutes plus `r n1("storm_taxi_effect")` minutes of taxi delay. Few hours qualify, so weather accounts for about `r n0("weather_minutes_per_year")` minutes a year across the stages. Thresholds of 105 F and 115 F are in `act1_weather_models.csv`.
+
+## Passenger demand
+
+```{r f-tsa, fig.cap="Share of daily checkpoint passengers and of daily departures by hour."}
+fig("act1_tsa_vs_departures")
+```
+
+PHX screens about `r n0("tsa_avg_daily")` passengers a day, peaking at `r h("tsa_peak_hour")`:00 with about `r n0("tsa_peak_hour_avg")` in that hour. The checkpoint peak (`r h("tsa_peak_hour")`:00) runs ahead of the departure peak (`r h("departure_peak_hour")`:00), as expected when passengers arrive before their flights. These are counts only; no wait times are implied.
+
+## Stage ranking in minutes and dollars
+
+```{r f-rank, fig.cap="Annual delay minutes by stage and their cost, base case."}
+fig("act1_stage_ranking")
+```
+
+```{r t-rank}
+stages |>
+  transmute(Stage = stage,
+            `Minutes per year` = fmt_n(minutes_per_year),
+            `Airline cost` = fmt_usd(airline_usd_base),
+            `Passenger time` = fmt_usd(passenger_usd_base),
+            `Total (range)` = paste0(fmt_usd(total_usd_base), " (", fmt_usd(total_usd_low), " to ", fmt_usd(total_usd_high), ")"),
+            `Recoverable per year` = fmt_usd(addressable_usd_base)) |>
+  knitr::kable(booktabs = TRUE, caption = "Stage ranking, 2024-2025 annual average. Recoverable value is measured against PHX's own benchmarks.")
+```
+
+Unit costs: a gate minute is valued at the Airlines for America 2025 crew, ownership and other cost (`r paste0(usd_sign, n1("rate_gate_airline"))` per minute, engines off), with the full block-minute cost (`r paste0(usd_sign, n1("rate_taxi_airline"))`) as the high case; a taxi minute takes the full block-minute cost. Passenger time uses the FAA and DOT value for air travel, `r paste0(usd_sign, n1("vtts_2025_per_hour"))` per hour in 2025 dollars, and `r n1("pax_per_dep_mainline")` passengers per mainline departure (`r n1("pax_per_dep_regional")` regional) from FAA seat and load-factor tables. Sources are in `data/reference/cost_inputs.csv`.
+
+# Recommendation
+
+```{r f-rec, fig.cap="Recoverable value per year by stage, base and high case."}
+fig("act1_recoverable_value")
+```
+
+**Thin the 7 to 11 AM departure bank so the runway queue shrinks.**
+
+- **Mechanism.** Taxi-out delay is the stage that grows with hourly load (Act 2). `r n1("taxi_recoverable_7_11_share")` percent of the recoverable queue time has pushback between 7 and 11 AM. Spreading those departures across adjacent hours, or sequencing them so fewer aircraft queue at once, removes queue time for the aircraft and the passengers on it.
+- **Who acts.** `r cname(h("taxi_bank_top_carrier"))` (`r n1("taxi_bank_top_carrier_share")` percent of the recoverable bank minutes) and `r cname(h("taxi_bank_second_carrier"))` (`r n1("taxi_bank_second_carrier_share")` percent) schedule the bank; the FAA tower and PHX airside operations sequence it.
+- **Expected value.** `r n0("stage_taxi_addr_min")` recoverable minutes a year in the base case, worth `r usd("stage_taxi_addr_usd")`. At 25 percent capture, `r fmt_usd(0.25 * hn_num("stage_taxi_addr_usd"))`; at 50 percent, `r fmt_usd(0.5 * hn_num("stage_taxi_addr_usd"))`.
+- **What would change it.** The ranking holds in `r hn_num("robust_cases_total") - hn_num("robust_cases_gate_wins")` of `r h("robust_cases_total")` assumption sets (table below). It flips if the fix only holds aircraft at the gate: that saves engine-running cost (`r usd("taxi_metering_only_usd")` a year) but not passenger time. In that case the better target is gate delay created at PHX, worth `r usd("stage_gate_addr_usd")` a year if each carrier matched the median large carrier in the same hour, with `r cname(h("gate_recoverable_top_carrier"))` holding `r n1("gate_recoverable_top_carrier_share")` percent of those minutes. A bank also exists to make connections, and the cost of losing them is not in public data; an airline would weigh that before moving flights.
+
+```{r t-robust}
+robust |> transmute(Case = case, `Gate, recoverable` = fmt_usd(gate_usd), `Taxi, recoverable` = fmt_usd(taxi_usd), `Larger` = larger) |>
+  knitr::kable(booktabs = TRUE, caption = "Does the recommendation hold? Recoverable value per year under each assumption set.")
+```
+
+# Act 2: what degrades first under 15 percent growth
+
+```{r f-growth, fig.cap="Added delay minutes per year by stage at each growth level, with 90 percent intervals."}
+fig("act2_growth_scenarios")
+```
+
+Each stage's delay per departure was fitted against the scheduled departures in the same clock hour across different days, controlling for weekday and month. Every hour's load and flight count were then scaled up. Inherited delay was held at today's level per departure, because it is created at other airports.
+
+```{r t-act2}
+tbl("act2_ranking_at_15") |>
+  transmute(Stage = stage, `Added minutes per year` = fmt_n(increase_min),
+            `90% interval` = paste(fmt_n(increase_lo), "to", fmt_n(increase_hi)),
+            `Rise in annual minutes` = paste0(round(increase_pct, 1), "%"),
+            `Busiest-hour minutes per departure` = round(peak_per_dep, 1)) |>
+  knitr::kable(booktabs = TRUE, caption = "Projected change at +15 percent traffic, all days.")
+```
+
+**Excess taxi-out degrades first.** At +15 percent traffic its annual minutes rise `r n1("act2_taxi_increase_pct")` percent (`r n0("act2_taxi_increase_lo")` to `r n0("act2_taxi_increase_hi")` added minutes, 90 percent interval), `r n1("act2_taxi_per_dep_change_pct")` percent per departure. Gate delay created at PHX rises `r n1("act2_gate_increase_pct")` percent, almost exactly the 15 percent added flights. The plan's second test, an hour averaging 15 minutes per departure, is not crossed by any stage within +20 percent (`act2_threshold_view.csv`).
+
+```{r t-wx}
+tbl("act2_bad_weather_at_15") |> knitr::kable(booktabs = TRUE, caption = "Rise in annual minutes at +15 percent, by day type (percent).")
+```
+
+The ranking holds on hot days and storm days. `r n1("act2_pct_hours_inside_range")` percent of hours stay within loads PHX has already handled in the same clock hour at +15 percent, so the projection mostly interpolates; `r n1("act2_pct_hours_15_above_typical")` percent of hours already run 15 percent or more above their hour's typical load.
+
+**How soon.** Not soon on the current trend, so a 15 percent jump would more likely come from a schedule decision, such as an airline adding a bank of flights, than from steady growth. FAA operations grew `r n1("growth_ops_pct")` percent from 2024 to 2025, TSA passengers `r n1("growth_tsa_pct")` percent on matching weeks, and BTS scheduled departures `r n1("growth_bts_pct")` percent.
+
+```{r t-growth}
+growth |> transmute(Measure = measure, `Growth 2025 vs 2024` = paste0(round(growth_2025_vs_2024_pct, 1), "%"),
+                    `Years to +15%` = ifelse(is.na(years_to_plus_15_pct), "not at this rate", round(years_to_plus_15_pct, 1))) |>
+  knitr::kable(booktabs = TRUE, caption = "Measured growth and time to +15 percent at that rate.")
+```
+
+# Implications for PHX
+
+- Watch taxi-out delay in the 7 to 11 AM window as the leading indicator. It is the stage that worsens per flight as traffic grows, and FAA publishes it hourly within 60 days of month end.
+- Treat any new morning departures as the costly ones. Growth placed outside the bank adds flights without adding queue time per flight.
+- Gate delay created at PHX is the largest pool of minutes today, and it is concentrated in a few carriers' operations. It responds to turn processes, not to runway capacity.
+
+# What better data would unlock
+
+- **Security wait times** (TSA or airport queue sensors) would add the curb-to-gate half of the journey.
+- **Gate occupancy and assignment** would show whether late pushbacks come from gate conflicts.
+- **Hourly called departure rates and runway configuration** (FAA, login only) would turn the load fit into a true utilization curve.
+- **The cost of moving a bank** (connection revenue at risk) would turn recoverable value into a return on investment.
+
+# Appendix
+
+## Definitions
+
+- **Departure delay:** actual gate departure minus scheduled, early departures counted as zero.
+- **Inherited delay:** the lesser of the inbound aircraft's arrival lateness and the outbound departure delay, same tail number.
+- **PHX-originated gate delay:** departure delay minus inherited delay.
+- **Excess taxi-out (primary):** FAA ASPM taxi-out delay, actual taxi-out minus FAA's unimpeded taxi time, assigned by pushback hour.
+- **Heat hour:** 110 F or hotter. **Storm hour:** thunderstorm, gust of 35 knots or more, or visibility under 3 miles.
+- **Degrades first:** largest rise in annual minutes at +15 percent traffic (`docs/method_decisions.md`, decision 7).
+
+## Model outputs
+
+```{r t-models}
+tbl("act2_load_models") |> transmute(Stage = stage, `Day type` = day_type, `Load` = signif(b_load, 3), `SE` = signif(se_load, 3),
+  `Load squared` = signif(b_load2, 3), `SE ` = signif(se_load2, 3), Hours = hours) |>
+  knitr::kable(booktabs = TRUE, caption = "Load response models: minutes per departure on hourly scheduled departures, with hour, weekday and month fixed effects, SE clustered by date.")
+```
+
+## Reproduction
+
+Prerequisites: R 4.6 with `renv`, Quarto with TinyTeX. Set `PHX_CACHE_DIR` to a folder outside the repository, run `renv::restore()`, then `Rscript R/run_all.R`. Scripts run in numbered order; downloads take about 15 minutes and the TSA PDF parse about 20. The FAA files in `data/raw/faa_*.csv` are saved from FAA's browser-only report forms with their query settings in the first line.

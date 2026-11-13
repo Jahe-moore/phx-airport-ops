@@ -1,0 +1,5 @@
+metric,faa_aspm,bts
+departures (ASPM: for metric computation; BTS: flown),586,490
+mean taxi-out (min),13.59,13.69
+"mean taxi-out delay vs unimpeded (ASPM) / excess taxi vs quiet-hour baseline (BTS), signed",3.99,0.85
+"same, BTS excess floored at zero per flight",3.99,2.12

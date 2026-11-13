@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PHX Departure Operations</title>
+<style>
+  :root { --navy:#1B2A4A; --steel:#5B7FA6; --copper:#B08D57; --ink:#1F2937; --muted:#5B6472; --bg:#FFFFFF; --panel:#F3F5F8; --rule:#D9DEE5; }
+  /* Always white, even in dark mode */
+  :root { color-scheme: light; }
+  html { background:#FFFFFF; }
+  * { box-sizing:border-box; }
+  body { margin:0; background:var(--bg); color:var(--ink); font-family:Arial, Helvetica, sans-serif; font-size:17px; line-height:1.55; }
+  main { max-width:1080px; margin:0 auto; padding:40px 16px 64px; }
+  h1, h2 { font-family:Georgia, "Times New Roman", serif; color:var(--navy); line-height:1.2; }
+  h1 { font-size:2.1rem; margin:0 0 6px; }
+  h2 { font-size:1.4rem; margin:44px 0 14px; padding-top:14px; border-top:1px solid var(--rule); }
+  .sub { color:var(--muted); margin:0 0 28px; }
+  .answers { display:grid; grid-template-columns:repeat(auto-fit, minmax(280px, 1fr)); gap:16px; }
+  .answer { background:var(--panel); border-left:5px solid var(--navy); padding:16px 18px; }
+  .answer.q2 { border-left-color:var(--copper); }
+  .answer h3 { margin:0 0 6px; font-size:0.95rem; text-transform:uppercase; letter-spacing:0.04em; color:var(--muted); }
+  .answer p { margin:0; }
+  .stats { display:grid; grid-template-columns:repeat(auto-fit, minmax(200px, 1fr)); gap:16px; margin-top:20px; }
+  .stat { padding:12px 0; border-top:3px solid var(--steel); }
+  .big { display:block; font-family:Georgia, serif; font-size:1.8rem; color:var(--copper); font-weight:bold; }
+  .lbl { color:var(--muted); font-size:0.95rem; }
+  .videos { display:grid; grid-template-columns:repeat(auto-fit, minmax(280px, 1fr)); gap:16px; }
+  .video { aspect-ratio:16/9; background:var(--panel); border:1px dashed var(--rule); display:flex; align-items:center; justify-content:center; color:var(--muted); text-align:center; padding:12px; }
+  .charts { display:grid; grid-template-columns:repeat(auto-fit, minmax(420px, 1fr)); gap:24px; }
+  @media (max-width:500px) { .charts { grid-template-columns:1fr; } h1 { font-size:1.6rem; } }
+  figure.chart { margin:0; }
+  figure.chart img { width:100%; height:auto; display:block; border:1px solid var(--rule); }
+  figcaption { font-size:0.95rem; color:var(--ink); margin-top:8px; font-weight:bold; }
+  .rec { background:var(--panel); border-left:5px solid var(--copper); padding:18px 20px; }
+  .rec .usd { font-family:Georgia, serif; font-size:2rem; color:var(--copper); font-weight:bold; display:block; }
+  ul { padding-left:20px; }
+  .links a { display:inline-block; margin:0 16px 8px 0; color:var(--steel); }
+  .muted { color:var(--muted); font-size:0.9rem; }
+</style>
+</head>
+<body>
+<main>
+  <h1>Where PHX departures lose time, and what breaks first as traffic grows</h1>
+  <p class="sub">Phoenix Sky Harbor treated as a consulting client, using public BTS, FAA, NOAA and TSA data for 2024 and 2025. By Jake Moore.</p>
+
+  <div class="answers">
+    <div class="answer"><h3>Where is time lost, and what is the best fix?</h3><p>The morning departure bank's taxi queue holds the most recoverable value, about $95.8M a year, with 68% of it in the 7 to 11 AM pushback window.</p></div>
+    <div class="answer q2"><h3>What degrades first at +15% traffic?</h3><p>Excess taxi-out degrades first: at +15% traffic its annual minutes rise 23.1% and its delay per flight rises 7.1%, while gate delay grows only with the number of flights.</p></div>
+  </div>
+  <div class="stats">
+      <div class="stat"><span class="big">193,862</span><span class="lbl">reporting-carrier departures per year</span></div>
+      <div class="stat"><span class="big">2.71M</span><span class="lbl">departure delay minutes per year</span></div>
+      <div class="stat"><span class="big">$788.1M</span><span class="lbl">yearly cost of the 3 measured stages</span></div>
+      <div class="stat"><span class="big">95.7%</span><span class="lbl">of departures linked to their inbound aircraft</span></div>
+  </div>
+
+  <h2>Video</h2>
+  <div class="videos">
+    <div class="video">Summary video coming soon</div>
+    <div class="video">Full walkthrough coming soon</div>
+  </div>
+
+  <h2>Key charts</h2>
+  <div class="charts">
+      <figure class="chart"><img src="img/act1_stage_ranking.png" alt="Gate delay created at PHX is the largest stage at 1.7M minutes a year; the 3 stages together cost about $788.1M a year." loading="lazy"><figcaption>Gate delay created at PHX is the largest stage at 1.7M minutes a year; the 3 stages together cost about $788.1M a year.</figcaption></figure>
+      <figure class="chart"><img src="img/act1_inherited_by_hour.png" alt="61% of departure delay is created at PHX; 39% arrives on late inbound aircraft." loading="lazy"><figcaption>61% of departure delay is created at PHX; 39% arrives on late inbound aircraft.</figcaption></figure>
+      <figure class="chart"><img src="img/act1_taxi_by_hour.png" alt="Taxi-out queues peak in the morning bank at 9.9 extra minutes per flight around 9:00." loading="lazy"><figcaption>Taxi-out queues peak in the morning bank at 9.9 extra minutes per flight around 9:00.</figcaption></figure>
+      <figure class="chart"><img src="img/act2_growth_scenarios.png" alt="At +15% traffic, excess taxi-out rises 23.1% in annual minutes and +7.1% per flight; gate delay rises only with flight count." loading="lazy"><figcaption>At +15% traffic, excess taxi-out rises 23.1% in annual minutes and +7.1% per flight; gate delay rises only with flight count.</figcaption></figure>
+  </div>
+
+  <h2>Recommendation</h2>
+  <div class="rec">
+    <span class="usd">$95.8M a year</span>
+    <p>Spread departures out of the 7 to 11 AM bank so the taxi queue shrinks. Southwest (33% of the bank's queue), American (33%), the FAA tower and PHX operations would act together. Value at stake: $95.8M a year in the base case, $318.9M in the high case. Holding aircraft at the gate alone saves only fuel and maintenance, about $19.7M a year, because passengers still leave late.</p>
+  </div>
+
+  <h2>Limitations</h2>
+  <ul>
+        <li>Scope starts at the gate. Curb, check-in, security waits and gate occupancy have no public data.</li>
+        <li>BTS covers reporting carriers only, about 80% of PHX operations counted by the FAA in 2024-2025.</li>
+        <li>TSA data is passenger counts only and implies nothing about wait times.</li>
+        <li>Act 2 is a projection with today's runways, gates and procedures, and an even schedule increase by hour.</li>
+        <li>Dollar inputs come from published A4A and FAA/DOT values; fix costs are not public, so dollars are recoverable value, not ROI.</li>
+  </ul>
+
+  <h2>Links</h2>
+  <p class="links"><a href="#">GitHub repo (link once published)</a><a href="#">Full report, PDF (link once published)</a><a href="#">Slide deck (link once published)</a></p>
+  <p class="muted">Every number on this page is generated by the project scripts from public data.</p>
+</main>
+</body>
+</html>
+
